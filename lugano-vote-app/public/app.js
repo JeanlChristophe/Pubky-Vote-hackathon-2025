@@ -10,12 +10,32 @@ const aiJudgeStatus = document.querySelector('#aiJudgePanelStatus');
 const runAiJudgeAllButton = document.querySelector('#runAiJudgeAll');
 
 const STORAGE_KEY = 'pubky-ring-identity';
+const RING_APP_NAME = 'Pubky Hackathon Voting';
+
+const ringRequests = [];
+[
+  connectButton?.dataset.request,
+  window.PUBKY_RING_REQUEST,
+  'pubkyhackathon/vote',
+  'pubky://pubky.hackathon/vote'
+].forEach((value) => {
+  if (typeof value !== 'string') {
+    return;
+  }
+  const trimmed = value.trim();
+  if (!trimmed || ringRequests.includes(trimmed)) {
+    return;
+  }
+  ringRequests.push(trimmed);
+});
+
 const TAG_COLOR_CLASSES = ['tag-pill--plum', 'tag-pill--teal', 'tag-pill--amber', 'tag-pill--rose', 'tag-pill--blue', 'tag-pill--mint'];
 
 let identity = null;
 
 let projects = [];
 let activeFilter = '';
+let lastRingError = null;
 
 function hashString(input = '') {
   let hash = 0;
@@ -695,15 +715,60 @@ function updateVoteButtons() {
 }
 
 async function requestRingIdentity() {
-  if (window.pubkyRing?.connect) {
-    return window.pubkyRing.connect({ appName: 'Pubky Hackathon Voting' });
+  lastRingError = null;
+
+  const connectors = [
+    typeof window.pubkyRing?.connect === 'function' ? window.pubkyRing.connect.bind(window.pubkyRing) : null,
+    typeof window.PubkyRing?.connect === 'function' ? window.PubkyRing.connect.bind(window.PubkyRing) : null,
+    typeof window.pubky?.ring?.connect === 'function' ? window.pubky.ring.connect.bind(window.pubky.ring) : null
+  ].filter(Boolean);
+
+  if (!connectors.length) {
+    return null;
   }
-  if (window.PubkyRing?.connect) {
-    return window.PubkyRing.connect({ appName: 'Pubky Hackathon Voting' });
+
+  const attempts = ringRequests.length ? [...ringRequests] : [];
+
+  const callConnector = async (connector, payload) => {
+    try {
+      const result = await connector(payload);
+      if (result) {
+        return result;
+      }
+    } catch (error) {
+      lastRingError = error;
+      if (payload) {
+        console.warn('Pubky Ring connect rejected', payload, error);
+      } else {
+        console.warn('Pubky Ring connect rejected', error);
+      }
+    }
+    return null;
+  };
+
+  for (const connector of connectors) {
+    for (const request of attempts) {
+      const response = await callConnector(connector, request);
+      if (response) {
+        return response;
+      }
+
+      const objectResponse = await callConnector(connector, { request, appName: RING_APP_NAME });
+      if (objectResponse) {
+        return objectResponse;
+      }
+    }
+
+    const defaultResponse = await callConnector(connector, { appName: RING_APP_NAME });
+    if (defaultResponse) {
+      return defaultResponse;
+    }
   }
-  if (window.pubky?.ring?.connect) {
-    return window.pubky.ring.connect({ appName: 'Pubky Hackathon Voting' });
+
+  if (lastRingError) {
+    console.warn('Falling back to manual Pubky key entry due to Pubky Ring errors:', lastRingError);
   }
+
   return null;
 }
 
@@ -718,9 +783,11 @@ async function connectIdentity() {
   try {
     const ringResponse = await requestRingIdentity();
     if (!ringResponse) {
-      const manualKey = window.prompt(
-        'Pubky Ring embed not detected. Enter your Pubky public key to continue:'
-      );
+      const manualPrompt = lastRingError?.message
+        ? `Pubky Ring rejected the connection (reason: ${lastRingError.message}). Enter your Pubky public key to continue:`
+        : 'Pubky Ring embed not detected. Enter your Pubky public key to continue:';
+      identityHint?.classList.add('identity-panel__hint--warn');
+      const manualKey = window.prompt(manualPrompt);
       if (!manualKey) {
         updateIdentityUI('Pubky Ring connection cancelled.');
         return;

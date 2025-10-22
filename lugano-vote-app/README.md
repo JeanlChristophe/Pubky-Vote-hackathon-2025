@@ -36,6 +36,24 @@ node src/server.js
 After the server prints the startup message, open [http://localhost:8082](http://localhost:8082) to
 explore the dashboard, connect a Pubky Ring identity, cast votes, and leave feedback.
 
+### Pubky Ring configuration
+
+- The **Connect Pubky Ring** button uses the request URI stored in its
+  `data-request="pubkyhackathon/vote"` attribute. Adjust this value to match the dataset your Ring
+  panel expects (for example `data-request="pubky://your-team/vote"`).
+- If you prefer to configure it globally, define `window.PUBKY_RING_REQUEST` before loading
+  `app.js`:
+
+  ```html
+  <script>
+    window.PUBKY_RING_REQUEST = 'pubky://your-team/vote';
+  </script>
+  <script type="module" src="app.js"></script>
+  ```
+
+- When the Ring rejects the request (for example when the URI is missing) the UI falls back to a
+  manual public key prompt so voting can still continue.
+
 ### Optional extras
 
 - **Generate a lockfile:** `npm install` (the app has zero runtime dependencies, but the command can
