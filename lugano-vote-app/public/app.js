@@ -12,10 +12,22 @@ const runAiJudgeAllButton = document.querySelector('#runAiJudgeAll');
 const STORAGE_KEY = 'pubky-ring-identity';
 const RING_APP_NAME = 'Pubky Hackathon Voting';
 
-const ringRequests = [];
+function pushUnique(target, value) {
+  if (!Array.isArray(target) || typeof value !== 'string') {
+    return;
+  }
+  if (!value || target.includes(value)) {
+    return;
+  }
+  target.push(value);
+}
+
+const baseRingRequests = [];
+
 [
   connectButton?.dataset.request,
   window.PUBKY_RING_REQUEST,
+  'pubky://pubkyhackathon/vote',
   'pubkyhackathon/vote',
   'pubky://pubky.hackathon/vote'
 ].forEach((value) => {
@@ -23,10 +35,32 @@ const ringRequests = [];
     return;
   }
   const trimmed = value.trim();
-  if (!trimmed || ringRequests.includes(trimmed)) {
+  if (!trimmed) {
     return;
   }
-  ringRequests.push(trimmed);
+  pushUnique(baseRingRequests, trimmed);
+});
+
+const ringRequests = [];
+
+baseRingRequests.forEach((request) => {
+  pushUnique(ringRequests, request);
+
+  if (request.includes('://')) {
+    return;
+  }
+
+  const normalized = request.replace(/^\/+/, '');
+  if (normalized) {
+    pushUnique(ringRequests, `pubky://${normalized}`);
+  }
+
+  if (request.startsWith('pubky')) {
+    const truncated = request.slice('pubky'.length).replace(/^\/+/, '');
+    if (truncated) {
+      pushUnique(ringRequests, `pubky://${truncated}`);
+    }
+  }
 });
 
 const TAG_COLOR_CLASSES = ['tag-pill--plum', 'tag-pill--teal', 'tag-pill--amber', 'tag-pill--rose', 'tag-pill--blue', 'tag-pill--mint'];

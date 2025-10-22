@@ -39,8 +39,9 @@ explore the dashboard, connect a Pubky Ring identity, cast votes, and leave feed
 ### Pubky Ring configuration
 
 - The **Connect Pubky Ring** button uses the request URI stored in its
-  `data-request="pubkyhackathon/vote"` attribute. Adjust this value to match the dataset your Ring
-  panel expects (for example `data-request="pubky://your-team/vote"`).
+  `data-request="pubky://pubkyhackathon/vote"` attribute. Adjust this value to match the dataset
+  your Ring panel expects (for example `data-request="pubky://your-team/vote"`). Plain
+  `pubky<user>/<path>` values are automatically expanded to the `pubky://` format if needed.
 - If you prefer to configure it globally, define `window.PUBKY_RING_REQUEST` before loading
   `app.js`:
 
