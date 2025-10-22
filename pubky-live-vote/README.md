@@ -28,11 +28,16 @@ cd pubky-live-vote
 npm install
 ```
 
+> **Tip:** if you prefer to stay at the repository root, the workspace wrapper also lets you run `npm run install:app` to install
+> dependencies without changing directories.
+
 ### Development
 
 ```bash
 npm run dev
 ```
+
+From the repository root you can use `npm run dev` as well—the root `package.json` proxies the command to the app workspace.
 
 The dev server runs on [http://localhost:5173](http://localhost:5173). The first load will automatically request a Pubky Ring session and render the QR code. Scan it with the Ring mobile app to authenticate. Without the app you can use the bundled mock client, which auto-accepts the login after a short delay.
 
