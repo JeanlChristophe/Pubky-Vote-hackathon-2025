@@ -9,6 +9,8 @@ const aiJudgeList = document.querySelector('#aiJudgePanelList');
 const aiJudgeStatus = document.querySelector('#aiJudgePanelStatus');
 const runAiJudgeAllButton = document.querySelector('#runAiJudgeAll');
 
+const identityHintDefaultText = identityHint?.textContent || '';
+
 const STORAGE_KEY = 'pubky-ring-identity';
 const RING_APP_NAME = 'Pubky Hackathon Voting';
 
@@ -27,9 +29,7 @@ const baseRingRequests = [];
 [
   connectButton?.dataset.request,
   window.PUBKY_RING_REQUEST,
-  'pubky://pubkyhackathon/vote',
-  'pubkyhackathon/vote',
-  'pubky://pubky.hackathon/vote'
+  'pubky://pubkyhackathon/vote'
 ].forEach((value) => {
   if (typeof value !== 'string') {
     return;
@@ -70,6 +70,7 @@ let identity = null;
 let projects = [];
 let activeFilter = '';
 let lastRingError = null;
+let invalidRingRequest = false;
 
 function hashString(input = '') {
   let hash = 0;
@@ -691,6 +692,15 @@ function clearIdentity() {
   localStorage.removeItem(STORAGE_KEY);
 }
 
+function resetIdentityHint() {
+  if (!identityHint) {
+    return;
+  }
+  if (identityHintDefaultText && identityHint.textContent !== identityHintDefaultText) {
+    identityHint.textContent = identityHintDefaultText;
+  }
+}
+
 function updateIdentityUI(message) {
   if (!identityStatus || !connectButton || !disconnectButton) {
     return;
@@ -701,12 +711,14 @@ function updateIdentityUI(message) {
     connectButton.textContent = 'Connect Pubky Ring';
     disconnectButton.hidden = true;
     identityHint?.classList.remove('identity-panel__hint--warn');
+    resetIdentityHint();
   } else {
     const aliasSegment = identity.alias ? `${identity.alias} · ` : '';
     identityStatus.textContent = `Connected as ${aliasSegment}${shortenPubkey(identity.pubkey)}`;
     connectButton.textContent = 'Reconnect Pubky Ring';
     disconnectButton.hidden = false;
     identityHint?.classList.remove('identity-panel__hint--warn');
+    resetIdentityHint();
   }
   connectButton.disabled = false;
   updateVoteButtons();
@@ -750,6 +762,7 @@ function updateVoteButtons() {
 
 async function requestRingIdentity() {
   lastRingError = null;
+  invalidRingRequest = false;
 
   const connectors = [
     typeof window.pubkyRing?.connect === 'function' ? window.pubkyRing.connect.bind(window.pubkyRing) : null,
@@ -771,7 +784,11 @@ async function requestRingIdentity() {
       }
     } catch (error) {
       lastRingError = error;
-      if (payload) {
+      const message = typeof error?.message === 'string' ? error.message : '';
+      const isInvalidRequest = message.includes('Invalid request/URI');
+      if (isInvalidRequest) {
+        invalidRingRequest = true;
+      } else if (payload) {
         console.warn('Pubky Ring connect rejected', payload, error);
       } else {
         console.warn('Pubky Ring connect rejected', error);
@@ -820,6 +837,10 @@ async function connectIdentity() {
       const manualPrompt = lastRingError?.message
         ? `Pubky Ring rejected the connection (reason: ${lastRingError.message}). Enter your Pubky public key to continue:`
         : 'Pubky Ring embed not detected. Enter your Pubky public key to continue:';
+      if (invalidRingRequest) {
+        identityHint?.classList.add('identity-panel__hint--warn');
+        identityHint.textContent = 'Pubky Ring rejected the configured request. Update the data-request attribute (pubky://<user>/<path>) or paste your public key manually.';
+      }
       identityHint?.classList.add('identity-panel__hint--warn');
       const manualKey = window.prompt(manualPrompt);
       if (!manualKey) {
