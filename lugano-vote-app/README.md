@@ -33,7 +33,7 @@ cd hackathon-2025/lugano-vote-app
 node src/server.js
 ```
 
-After the server prints the startup message, open [http://localhost:3000](http://localhost:3000) to
+After the server prints the startup message, open [http://localhost:8082](http://localhost:8082) to
 explore the dashboard, connect a Pubky Ring identity, cast votes, and leave feedback.
 
 ### Optional extras

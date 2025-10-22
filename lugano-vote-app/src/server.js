@@ -5,7 +5,7 @@ const fs = require('fs');
 const homeserverSync = require('./homeserverSync');
 const aiJudge = require('./aiJudge');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8082;
 const DATA_FILE = path.join(__dirname, '..', 'data', 'projects.json');
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
 
