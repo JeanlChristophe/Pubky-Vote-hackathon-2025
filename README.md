@@ -6,6 +6,10 @@
 
 This repository contains the project submissions for the Lugano Plan B Pubky Hackathon.
 
+## Projects
+
+- [Lugano Vote App](./lugano-vote-app/) – Node + vanilla web app for project discovery, tagging, live voting, Pubky posts, and AI judge scoring.
+
 **Purpose:** stress-test **Pubky Core (SDK)** by building real, runnable outputs. Expose friction, validate design assumptions, and ship usable demos.
 
 ---

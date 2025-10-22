@@ -1,0 +1,19 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pubky-gradient" x1="4" y1="28" x2="28" y2="4" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8C54FF" />
+      <stop offset="1" stop-color="#4DE7C6" />
+    </linearGradient>
+    <linearGradient id="pubky-glow" x1="8" y1="30" x2="30" y2="8" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101827" stop-opacity="0" />
+      <stop offset="1" stop-color="#101827" stop-opacity="0.45" />
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="30" height="30" rx="10" fill="#0F172A" />
+  <rect x="1" y="1" width="30" height="30" rx="10" fill="url(#pubky-glow)" />
+  <path
+    d="M11 9h6.5c2.485 0 4.5 2.015 4.5 4.5S20 18 17.5 18H13v5h-2V9Zm6.25 7c1.243 0 2.25-1.007 2.25-2.25S18.493 11.5 17.25 11.5H13v4.5h4.25Z"
+    fill="url(#pubky-gradient)"
+  />
+  <circle cx="22.5" cy="22.5" r="2.5" fill="#4DE7C6" />
+</svg>

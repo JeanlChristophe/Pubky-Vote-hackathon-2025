@@ -1,0 +1,99 @@
+[
+  {
+    "id": "pubky-copilot",
+    "name": "Pubky Copilot",
+    "team": "Team Syn",
+    "description": "AI-assisted Pubky app builder that scaffolds new projects in minutes.",
+    "summary": "Pubky Copilot pairs the Pubky SDK with generative scaffolding so builders can describe a concept and instantly receive a runnable starter project complete with identity wiring and deployment scripts.",
+    "tags": [
+      "ai",
+      "developer-tools"
+    ],
+    "votes": 7,
+    "voters": [
+      "demoidentity000000001",
+      "demoidentity000000002",
+      "demoidentity000000003",
+      "demoidentity000000004",
+      "demoidentity000000005",
+      "demoidentity000000006",
+      "demoidentity000000007"
+    ],
+    "links": {
+      "repo": "https://github.com/example/pubky-copilot",
+      "demo": "https://pubky-copilot.example.com"
+    },
+    "feedback": [],
+    "aiJudge": {
+      "score": 83,
+      "reasoning": "Focuses on ai with a clear Pubky narrative.",
+      "model": "gpt-judge-sim",
+      "source": "seed-simulation",
+      "simulated": true,
+      "lastEvaluatedAt": "2025-10-22T10:32:46.027Z"
+    }
+  },
+  {
+    "id": "pubky-crowdmap",
+    "name": "Pubky Crowdmap",
+    "team": "Lugano Legends",
+    "description": "Map-based incident reporting secured with Pubky identities.",
+    "summary": "Pubky Crowdmap lets residents post geo-tagged incidents through Pubky Ring, prioritises verifiable updates, and equips city teams with analytics to triage on-chain submissions.",
+    "tags": [
+      "civic",
+      "maps"
+    ],
+    "votes": 4,
+    "voters": [
+      "crowdidentity00000001",
+      "crowdidentity00000002",
+      "crowdidentity00000003",
+      "crowdidentity00000004"
+    ],
+    "links": {
+      "repo": "https://github.com/example/pubky-crowdmap",
+      "demo": "https://pubky-crowdmap.example.com"
+    },
+    "feedback": [],
+    "aiJudge": {
+      "score": 95,
+      "reasoning": "Focuses on maps with a clear Pubky narrative.",
+      "model": "gpt-judge-sim",
+      "source": "seed-simulation",
+      "simulated": true,
+      "lastEvaluatedAt": "2025-10-22T10:32:46.034Z"
+    }
+  },
+  {
+    "id": "pubky-wallet-lite",
+    "name": "Pubky Wallet Lite",
+    "team": "Wallet Wizards",
+    "description": "Lightweight wallet that doubles as an onboarding tutorial.",
+    "summary": "Pubky Wallet Lite walks newcomers through wallet creation, key safety, and their first Pubky transaction with interactive lessons embedded alongside core wallet actions.",
+    "tags": [
+      "wallet",
+      "onboarding"
+    ],
+    "votes": 5,
+    "voters": [
+      "walletidentity0000001",
+      "walletidentity0000002",
+      "walletidentity0000003",
+      "walletidentity0000004",
+      "walletidentity0000005"
+    ],
+    "links": {
+      "repo": "https://github.com/example/pubky-wallet-lite",
+      "demo": "https://pubky-wallet-lite.example.com"
+    },
+    "feedback": [],
+    "aiJudge": {
+      "score": 70,
+      "reasoning": "Focuses on onboarding with a clear Pubky narrative.",
+      "model": "gpt-judge-sim",
+      "source": "seed-simulation",
+      "simulated": true,
+      "lastEvaluatedAt": "2025-10-22T10:32:46.034Z"
+    }
+  }
+]

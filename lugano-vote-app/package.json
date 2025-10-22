@@ -1,0 +1,18 @@
+{
+  "name": "lugano-vote-app",
+  "version": "1.0.0",
+  "description": "Hackathon voting dashboard for Pubky Lugano 2025 projects.",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [
+    "pubky",
+    "hackathon",
+    "voting"
+  ],
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pubky Hackathon Voting</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="topbar__brand" role="banner">
+          <img class="topbar__logo" src="assets/pubky-logo.svg" alt="Pubky" />
+          <span class="topbar__brand-text">Pubky</span>
+        </div>
+        <div class="topbar__search" role="search">
+          <svg class="topbar__search-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16a6.5 6.5 0 0 0 4.23-1.57l.27.28v.79L20.5 21 21 20.5 15.5 14zM9.5 15A5.5 5.5 0 1 1 15 9.5 5.5 5.5 0 0 1 9.5 15z"
+            />
+          </svg>
+          <input
+            id="filterInput"
+            type="search"
+            placeholder="Search teams, tags, or project names"
+            aria-label="Filter projects"
+            autocomplete="off"
+          />
+        </div>
+        <div class="topbar__actions" aria-label="Pubky shortcuts">
+          <button type="button" class="topbar__icon" aria-label="Notifications">
+            <span class="topbar__icon-dot"></span>
+          </button>
+          <button type="button" class="topbar__icon" aria-label="Control center">
+            <span class="topbar__icon-grid"></span>
+          </button>
+          <button type="button" class="topbar__profile" aria-label="Profile">
+            <span class="topbar__profile-avatar">LK</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <aside class="layout__sidebar">
+          <section class="identity-panel" aria-live="polite">
+            <div class="identity-panel__header">
+              <h2>Pubky Ring</h2>
+              <p id="identityStatus">Not connected to Pubky Ring.</p>
+            </div>
+            <p id="identityHint" class="identity-panel__hint">
+              Connect your Pubky Ring identity to ensure each public key can only vote once.
+            </p>
+            <div class="identity-panel__actions">
+              <button id="connectPubkyRing" type="button" class="identity-panel__button">
+                Connect Pubky Ring
+              </button>
+              <button
+                id="disconnectPubkyRing"
+                type="button"
+                class="identity-panel__button identity-panel__button--secondary"
+                hidden
+              >
+                Disconnect
+              </button>
+            </div>
+          </section>
+
+          <section class="sidebar-card ai-judge-panel" aria-live="polite">
+            <div class="ai-judge-panel__header">
+              <h2 class="sidebar-card__title">AI Judge Panel</h2>
+              <button id="runAiJudgeAll" type="button" class="ai-judge-panel__button">
+                Score all projects
+              </button>
+            </div>
+            <p class="ai-judge-panel__hint">
+              ChatGPT reviews the Pubky summaries and assigns a 0–100 score.
+            </p>
+            <ol id="aiJudgePanelList" class="ai-judge-panel__list"></ol>
+            <p id="aiJudgePanelStatus" class="ai-judge-panel__status" role="status"></p>
+          </section>
+
+          <section class="sidebar-card">
+            <h2 class="sidebar-card__title">How voting works</h2>
+            <ul class="sidebar-card__list">
+              <li>Connect with Pubky Ring so we can bind your ballot to your key.</li>
+              <li>Review each project’s mission, links, and discovery tags.</li>
+              <li>Cast one vote per project. Votes update the live leaderboard instantly.</li>
+            </ul>
+          </section>
+        </aside>
+
+        <section class="layout__content" aria-live="polite">
+          <header class="content-header">
+            <div>
+              <p class="content-header__eyebrow">Lugano 2025</p>
+              <h1 class="content-header__title">Hackathon Showcase</h1>
+            </div>
+            <p class="content-header__subtitle">
+              Tag standout ideas and send encouragement. Every Pubky key can vote once per project.
+            </p>
+          </header>
+
+          <section id="projects" class="project-feed" aria-live="polite"></section>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <small>
+          Built for the Pubky Internal Hackathon Lugano 2025. Data persists locally in
+          <code>data/projects.json</code> and optionally syncs to the configured Pubky homeserver during
+          startup and whenever votes or tags change.
+        </small>
+      </footer>
+    </div>
+
+    <template id="project-template">
+      <article class="project-card">
+        <header class="project-card__header">
+          <div class="project-card__identity">
+            <div class="project-card__avatar" aria-hidden="true"></div>
+            <div>
+              <h2 class="project-card__title"></h2>
+              <p class="project-card__team"></p>
+            </div>
+          </div>
+          <div class="project-card__vote-metric" aria-label="Vote count">
+            <span class="project-card__votes"></span>
+            <button class="project-card__vote-button" type="button">Vote</button>
+          </div>
+        </header>
+        <p class="project-card__description"></p>
+        <div class="project-card__links"></div>
+        <div class="project-card__tags"></div>
+        <section class="project-card__ai-judge" aria-live="polite">
+          <div class="project-card__ai-judge-heading">
+            <h3>AI Judge</h3>
+            <button type="button" class="project-card__ai-judge-button">Re-score</button>
+          </div>
+          <div class="project-card__ai-judge-metric">
+            <span class="project-card__ai-score" aria-label="AI judge score">--</span>
+            <span class="project-card__ai-score-label">Score</span>
+          </div>
+          <p class="project-card__ai-reasoning"></p>
+          <p class="project-card__ai-meta"></p>
+        </section>
+        <div class="project-card__actions">
+          <button
+            class="project-card__feedback-button"
+            type="button"
+            aria-expanded="false"
+          >
+            Leave feedback
+          </button>
+        </div>
+        <form class="project-card__feedback-form" autocomplete="off" hidden>
+          <label class="project-card__feedback-label">
+            <span class="sr-only">Feedback message</span>
+            <textarea
+              name="message"
+              rows="3"
+              maxlength="1000"
+              placeholder="Share encouragement or suggestions"
+              required
+            ></textarea>
+          </label>
+          <div class="project-card__feedback-controls">
+            <button type="button" class="project-card__feedback-cancel">Cancel</button>
+            <button type="submit" class="project-card__feedback-submit">Post feedback</button>
+          </div>
+        </form>
+        <form class="project-card__tag-form" autocomplete="off">
+          <label>
+            <span class="sr-only">Add tag</span>
+            <input name="tag" type="text" placeholder="Add tag" required />
+          </label>
+          <button type="submit" aria-label="Add tag">+</button>
+        </form>
+        <p class="project-card__status" role="status"></p>
+      </article>
+    </template>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
