@@ -8,7 +8,6 @@ import { demoProjects } from '../services/sampleProjects';
 interface ProjectContextValue {
   projects: Project[];
   updateProjectScore: (projectId: string, component: ScoreComponent, value: number) => void;
-  toggleReadiness: (projectId: string, ready: boolean) => void;
   updateComment: (projectId: string, comment: string) => void;
   updateTags: (projectId: string, tags: string[]) => void;
   submitBallot: () => Promise<void>;
@@ -26,6 +25,55 @@ const STORAGE_KEY = 'pubky-live-vote:projects';
 const RANKING_KEY = 'pubky-live-vote:popular';
 const SUBMISSION_KEY = 'pubky-live-vote:last-submission';
 const OWN_PROJECT_KEY = 'pubky-live-vote:own-project';
+
+const SCORE_COMPONENTS: ScoreComponent[] = ['complexity', 'creativity', 'readiness', 'presentation', 'feedback'];
+
+type LegacyProject = Project & { readiness?: boolean };
+
+const clampScore = (value: unknown, fallback = 0) => {
+  if (typeof value !== 'number' || Number.isNaN(value)) return fallback;
+  return Math.min(10, Math.max(0, Math.round(value)));
+};
+
+const normalizeProject = (input: LegacyProject): Project => {
+  const legacyReadiness = input.readiness === true ? 10 : input.readiness === false ? 0 : undefined;
+  const normalizedScores = SCORE_COMPONENTS.reduce((acc, component) => {
+    const fallback = component === 'readiness' ? legacyReadiness ?? 0 : 0;
+    const rawScores = input.scores as Partial<Record<ScoreComponent, unknown>>;
+    acc[component] = clampScore(rawScores?.[component], fallback);
+    return acc;
+  }, {} as Record<ScoreComponent, number>);
+
+  return {
+    id: typeof input.id === 'string' ? input.id : String(input.id ?? ''),
+    name: typeof input.name === 'string' ? input.name : String(input.name ?? ''),
+    description:
+      typeof input.description === 'string' ? input.description : String(input.description ?? ''),
+    tags: Array.isArray(input.tags) ? input.tags.map((tag) => String(tag)) : [],
+    scores: normalizedScores,
+    comment: typeof input.comment === 'string' ? input.comment : undefined,
+    userTags: Array.isArray(input.userTags) ? input.userTags.map((tag) => String(tag)) : [],
+    teamMembers: Array.isArray(input.teamMembers)
+      ? input.teamMembers.map((member) => String(member))
+      : undefined,
+    aiScore: typeof input.aiScore === 'number' ? input.aiScore : undefined
+  } satisfies Project;
+};
+
+const loadInitialProjects = () => {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored) as LegacyProject[];
+      if (Array.isArray(parsed)) {
+        return parsed.map(normalizeProject);
+      }
+    } catch (error) {
+      console.warn('Failed to parse stored projects, falling back to defaults', error);
+    }
+  }
+  return demoProjects.map(normalizeProject);
+};
 
 const buildSubmissionEvent = (
   submittedAt: string,
@@ -68,13 +116,7 @@ const buildSubmissionEvent = (
 
 export const ProjectProvider = ({ children }: PropsWithChildren) => {
   const { user, sessionStorage, session, authMethod } = useAuth();
-  const [projects, setProjects] = useState<Project[]>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      return JSON.parse(stored) as Project[];
-    }
-    return demoProjects;
-  });
+  const [projects, setProjects] = useState<Project[]>(loadInitialProjects);
   const [popularRanking, setPopularRanking] = useState<string[]>(() => {
     const stored = localStorage.getItem(RANKING_KEY);
     if (stored) {
@@ -120,10 +162,6 @@ export const ProjectProvider = ({ children }: PropsWithChildren) => {
     }));
   };
 
-  const toggleReadiness = (projectId: string, ready: boolean) => {
-    mutateProject(projectId, (project) => ({ ...project, readiness: ready }));
-  };
-
   const updateComment = (projectId: string, comment: string) => {
     mutateProject(projectId, (project) => ({ ...project, comment }));
   };
@@ -146,7 +184,6 @@ export const ProjectProvider = ({ children }: PropsWithChildren) => {
       scores: projects.map((project) => ({
         projectId: project.id,
         scores: project.scores,
-        readiness: project.readiness,
         comment: project.comment,
         tags: project.userTags
       }))
@@ -167,7 +204,6 @@ export const ProjectProvider = ({ children }: PropsWithChildren) => {
     () => ({
       projects,
       updateProjectScore,
-      toggleReadiness,
       updateComment,
       updateTags,
       submitBallot,

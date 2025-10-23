@@ -9,9 +9,9 @@
                     "complexity": 8,
                     "creativity": 7,
                     "presentation": 8,
-                    "feedback": 8
+                    "feedback": 8,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Great way to hide SDK friction.",
                 "tags": [
                     "sdk",
@@ -24,9 +24,9 @@
                     "complexity": 7,
                     "creativity": 6,
                     "presentation": 7,
-                    "feedback": 7
+                    "feedback": 7,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Slick CLI coverage.",
                 "tags": [
                     "cli",
@@ -39,9 +39,9 @@
                     "complexity": 6,
                     "creativity": 8,
                     "presentation": 7,
-                    "feedback": 8
+                    "feedback": 8,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Tagging UX is clear already.",
                 "tags": [
                     "browser"
@@ -53,9 +53,9 @@
                     "complexity": 5,
                     "creativity": 7,
                     "presentation": 8,
-                    "feedback": 7
+                    "feedback": 7,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Needs sync polish but promising.",
                 "tags": [
                     "sharing"
@@ -67,9 +67,9 @@
                     "complexity": 6,
                     "creativity": 6,
                     "presentation": 9,
-                    "feedback": 9
+                    "feedback": 9,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Docs look ready to ship.",
                 "tags": [
                     "docs"
@@ -81,9 +81,9 @@
                     "complexity": 7,
                     "creativity": 7,
                     "presentation": 6,
-                    "feedback": 7
+                    "feedback": 7,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Curious to see moderation story.",
                 "tags": [
                     "wiki"
@@ -95,9 +95,9 @@
                     "complexity": 8,
                     "creativity": 8,
                     "presentation": 6,
-                    "feedback": 6
+                    "feedback": 6,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Contracts flow is clever.",
                 "tags": [
                     "identity"
@@ -109,9 +109,9 @@
                     "complexity": 8,
                     "creativity": 9,
                     "presentation": 9,
-                    "feedback": 9
+                    "feedback": 9,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Polished end-to-end flow with clear UX.",
                 "tags": [
                     "ux",
@@ -124,9 +124,9 @@
                     "complexity": 7,
                     "creativity": 9,
                     "presentation": 7,
-                    "feedback": 7
+                    "feedback": 7,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Map interactions feel smooth.",
                 "tags": [
                     "mapping"
@@ -155,9 +155,9 @@
                     "complexity": 8,
                     "creativity": 8,
                     "presentation": 7,
-                    "feedback": 8
+                    "feedback": 8,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Great developer story.",
                 "tags": [
                     "sdk"
@@ -169,9 +169,9 @@
                     "complexity": 7,
                     "creativity": 7,
                     "presentation": 7,
-                    "feedback": 6
+                    "feedback": 6,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Could use more examples.",
                 "tags": [
                     "docs"
@@ -183,9 +183,9 @@
                     "complexity": 6,
                     "creativity": 8,
                     "presentation": 8,
-                    "feedback": 8
+                    "feedback": 8,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Tag filter view is neat.",
                 "tags": [
                     "browser"
@@ -197,9 +197,9 @@
                     "complexity": 5,
                     "creativity": 7,
                     "presentation": 7,
-                    "feedback": 7
+                    "feedback": 7,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Excited for sharing features.",
                 "tags": [
                     "sharing"
@@ -211,9 +211,9 @@
                     "complexity": 6,
                     "creativity": 6,
                     "presentation": 9,
-                    "feedback": 9
+                    "feedback": 9,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Love the runnable snippets.",
                 "tags": [
                     "docs"
@@ -225,9 +225,9 @@
                     "complexity": 7,
                     "creativity": 7,
                     "presentation": 6,
-                    "feedback": 7
+                    "feedback": 7,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Needs governance details.",
                 "tags": [
                     "wiki"
@@ -239,9 +239,9 @@
                     "complexity": 8,
                     "creativity": 8,
                     "presentation": 7,
-                    "feedback": 6
+                    "feedback": 6,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Key linking is powerful.",
                 "tags": [
                     "identity"
@@ -253,9 +253,9 @@
                     "complexity": 8,
                     "creativity": 9,
                     "presentation": 9,
-                    "feedback": 8
+                    "feedback": 8,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Great QR onboarding and leaderboard polish.",
                 "tags": [
                     "polish"
@@ -267,9 +267,9 @@
                     "complexity": 7,
                     "creativity": 9,
                     "presentation": 8,
-                    "feedback": 7
+                    "feedback": 7,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Would like offline cache soon.",
                 "tags": [
                     "mapping"
@@ -298,9 +298,9 @@
                     "complexity": 8,
                     "creativity": 7,
                     "presentation": 8,
-                    "feedback": 8
+                    "feedback": 8,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Makes onboarding trivial.",
                 "tags": [
                     "sdk"
@@ -312,9 +312,9 @@
                     "complexity": 7,
                     "creativity": 6,
                     "presentation": 7,
-                    "feedback": 7
+                    "feedback": 7,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Add more validation checks.",
                 "tags": [
                     "roadmap"
@@ -326,9 +326,9 @@
                     "complexity": 6,
                     "creativity": 8,
                     "presentation": 7,
-                    "feedback": 8
+                    "feedback": 8,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Tag search is already helpful.",
                 "tags": [
                     "browser"
@@ -340,9 +340,9 @@
                     "complexity": 5,
                     "creativity": 7,
                     "presentation": 8,
-                    "feedback": 7
+                    "feedback": 7,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Sync roadmap makes sense.",
                 "tags": [
                     "sharing"
@@ -354,9 +354,9 @@
                     "complexity": 6,
                     "creativity": 6,
                     "presentation": 9,
-                    "feedback": 9
+                    "feedback": 9,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Love the walkthrough format.",
                 "tags": [
                     "docs"
@@ -368,9 +368,9 @@
                     "complexity": 7,
                     "creativity": 7,
                     "presentation": 6,
-                    "feedback": 7
+                    "feedback": 7,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Curious how moderation scales.",
                 "tags": [
                     "wiki"
@@ -382,9 +382,9 @@
                     "complexity": 8,
                     "creativity": 8,
                     "presentation": 6,
-                    "feedback": 6
+                    "feedback": 6,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Key-based contracts feel fresh.",
                 "tags": [
                     "identity"
@@ -396,9 +396,9 @@
                     "complexity": 8,
                     "creativity": 8,
                     "presentation": 9,
-                    "feedback": 9
+                    "feedback": 9,
+                    "readiness": 10
                 },
-                "readiness": true,
                 "comment": "Impressive offline fallback story.",
                 "tags": [
                     "offline"
@@ -410,9 +410,9 @@
                     "complexity": 7,
                     "creativity": 9,
                     "presentation": 8,
-                    "feedback": 7
+                    "feedback": 7,
+                    "readiness": 0
                 },
-                "readiness": false,
                 "comment": "Stories pop on the map.",
                 "tags": [
                     "mapping"

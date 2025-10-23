@@ -10,10 +10,10 @@ export const demoProjects: Project[] = [
     scores: {
       complexity: 8,
       creativity: 7,
+      readiness: 10,
       presentation: 7,
       feedback: 8
     },
-    readiness: true,
     userTags: ['sdk', 'automation'],
     teamMembers: ['Vlada'],
     aiScore: 86
@@ -26,10 +26,10 @@ export const demoProjects: Project[] = [
     scores: {
       complexity: 7,
       creativity: 6,
+      readiness: 10,
       presentation: 7,
       feedback: 7
     },
-    readiness: true,
     userTags: ['cli', 'ops'],
     teamMembers: ['Vladimir', 'Piotr'],
     aiScore: 79
@@ -42,10 +42,10 @@ export const demoProjects: Project[] = [
     scores: {
       complexity: 6,
       creativity: 8,
+      readiness: 0,
       presentation: 7,
       feedback: 8
     },
-    readiness: false,
     userTags: ['browser', 'research'],
     teamMembers: ['Miguel', 'Oier', 'Severin'],
     aiScore: 75
@@ -58,10 +58,10 @@ export const demoProjects: Project[] = [
     scores: {
       complexity: 5,
       creativity: 7,
+      readiness: 0,
       presentation: 8,
       feedback: 7
     },
-    readiness: false,
     userTags: ['sharing'],
     teamMembers: ['Jams', 'Tomos'],
     aiScore: 72
@@ -74,10 +74,10 @@ export const demoProjects: Project[] = [
     scores: {
       complexity: 6,
       creativity: 6,
+      readiness: 10,
       presentation: 8,
       feedback: 9
     },
-    readiness: true,
     userTags: ['onboarding', 'docs'],
     teamMembers: ['Aldert'],
     aiScore: 83
@@ -90,10 +90,10 @@ export const demoProjects: Project[] = [
     scores: {
       complexity: 7,
       creativity: 7,
+      readiness: 0,
       presentation: 6,
       feedback: 7
     },
-    readiness: false,
     userTags: ['wiki'],
     teamMembers: ['Carlos', 'Pav', 'Ovi'],
     aiScore: 78
@@ -106,10 +106,10 @@ export const demoProjects: Project[] = [
     scores: {
       complexity: 8,
       creativity: 8,
+      readiness: 10,
       presentation: 6,
       feedback: 6
     },
-    readiness: true,
     userTags: ['identity'],
     teamMembers: ['Jacobo', 'Oliver'],
     aiScore: 82
@@ -122,10 +122,10 @@ export const demoProjects: Project[] = [
     scores: {
       complexity: 6,
       creativity: 7,
+      readiness: 10,
       presentation: 9,
       feedback: 8
     },
-    readiness: true,
     userTags: ['voting'],
     teamMembers: ['JC'],
     aiScore: 88
@@ -139,10 +139,10 @@ export const demoProjects: Project[] = [
     scores: {
       complexity: 7,
       creativity: 9,
+      readiness: 0,
       presentation: 7,
       feedback: 7
     },
-    readiness: false,
     userTags: ['mapping'],
     teamMembers: ['Corey'],
     aiScore: 84
@@ -155,10 +155,10 @@ export const demoProjects: Project[] = [
     scores: {
       complexity: 7,
       creativity: 8,
+      readiness: 0,
       presentation: 7,
       feedback: 8
     },
-    readiness: false,
     userTags: ['developer-tools'],
     teamMembers: ['Kevin'],
     aiScore: 81
@@ -171,10 +171,10 @@ export const demoProjects: Project[] = [
     scores: {
       complexity: 6,
       creativity: 7,
+      readiness: 0,
       presentation: 8,
       feedback: 7
     },
-    readiness: false,
     userTags: ['sdk', 'playground'],
     teamMembers: ['Joao'],
     aiScore: 77
@@ -187,10 +187,10 @@ export const demoProjects: Project[] = [
     scores: {
       complexity: 6,
       creativity: 7,
+      readiness: 0,
       presentation: 6,
       feedback: 7
     },
-    readiness: false,
     userTags: ['jobs'],
     teamMembers: ['@P2PJobsTeam'],
     aiScore: 70

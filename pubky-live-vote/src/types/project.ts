@@ -1,4 +1,4 @@
-export type ScoreComponent = 'complexity' | 'creativity' | 'presentation' | 'feedback';
+export type ScoreComponent = 'complexity' | 'creativity' | 'readiness' | 'presentation' | 'feedback';
 
 export interface Project {
   id: string;
@@ -6,7 +6,6 @@ export interface Project {
   description: string;
   tags: string[];
   scores: Record<ScoreComponent, number>;
-  readiness: boolean;
   comment?: string;
   userTags: string[];
   teamMembers?: string[];
@@ -30,7 +29,6 @@ export interface BallotPayload {
   scores: Array<{
     projectId: string;
     scores: Record<ScoreComponent, number>;
-    readiness: boolean;
     comment?: string;
     tags: string[];
   }>;

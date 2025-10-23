@@ -8,7 +8,6 @@ import './ProjectCard.css';
 interface Props {
   project: Project;
   onScoreChange: (projectId: string, component: ScoreComponent, value: number) => void;
-  onReadinessToggle: (projectId: string, ready: boolean) => void;
   onCommentChange: (projectId: string, comment: string) => void;
   onTagsChange: (projectId: string, tags: string[]) => void;
 }
@@ -16,21 +15,18 @@ interface Props {
 const SCORE_LABELS: Record<ScoreComponent, string> = {
   complexity: 'Complexity',
   creativity: 'Creativity / Practicality',
+  readiness: 'Readiness / Demo polish',
   presentation: 'Team Presentation',
   feedback: 'Feedback Quality'
 };
 
-export const ProjectCard = ({ project, onScoreChange, onReadinessToggle, onCommentChange, onTagsChange }: Props) => {
+export const ProjectCard = ({ project, onScoreChange, onCommentChange, onTagsChange }: Props) => {
   const handleSlider = (component: ScoreComponent) => (value: number) => {
     onScoreChange(project.id, component, value);
   };
 
   const handleComment = (event: ChangeEvent<HTMLTextAreaElement>) => {
     onCommentChange(project.id, event.target.value);
-  };
-
-  const handleReadiness = (event: ChangeEvent<HTMLInputElement>) => {
-    onReadinessToggle(project.id, event.target.checked);
   };
 
   const handleTagsUpdate = (tags: string[]) => {
@@ -77,10 +73,6 @@ export const ProjectCard = ({ project, onScoreChange, onReadinessToggle, onComme
       </section>
 
       <section className="project-card__meta">
-        <label className="checkbox">
-          <input type="checkbox" checked={project.readiness} onChange={handleReadiness} />
-          <span>Readiness confirmed (demo live)</span>
-        </label>
         <div className="project-card__comment">
           <label htmlFor={`${project.id}-comment`}>Feedback</label>
           <textarea

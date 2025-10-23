@@ -86,15 +86,13 @@ const computeFromBallots = (ballots: BallotPayload[], projects: Project[]): Lead
     ballot.scores.forEach((score) => {
       const aggregate = aggregates.get(score.projectId);
       if (!aggregate) return;
-      (['complexity', 'creativity', 'presentation', 'feedback'] as ScoreComponent[]).forEach(
+      (['complexity', 'creativity', 'readiness', 'presentation', 'feedback'] as ScoreComponent[]).forEach(
         (component) => {
           const value = score.scores[component] ?? 0;
           aggregate[component].sum += value;
           aggregate[component].count += 1;
         }
       );
-      aggregate.readiness.sum += score.readiness ? 1 : 0;
-      aggregate.readiness.count += 1;
     });
 
     ballot.popularRanking.forEach((projectId, index) => {
@@ -139,7 +137,7 @@ const computeFromLocalProjects = (
     const components: LeaderboardComponents = {
       complexity: project.scores.complexity * 10,
       creativity: project.scores.creativity * 10,
-      readiness: project.readiness ? 100 : 0,
+      readiness: (project.scores.readiness ?? 0) * 10,
       presentation: project.scores.presentation * 10,
       feedback: project.scores.feedback * 10,
       popular: computeLocalPopularScore(project.id, ranking, totalProjects),
@@ -208,7 +206,7 @@ const computeNormalizedComponents = (aggregate: Aggregate, maxPopularPoints: num
   const creativity = normalizeSlider(aggregate.creativity.sum, aggregate.creativity.count);
   const presentation = normalizeSlider(aggregate.presentation.sum, aggregate.presentation.count);
   const feedback = normalizeSlider(aggregate.feedback.sum, aggregate.feedback.count);
-  const readiness = normalizeBoolean(aggregate.readiness.sum, aggregate.readiness.count);
+  const readiness = normalizeSlider(aggregate.readiness.sum, aggregate.readiness.count);
   const popular = maxPopularPoints > 0 ? (aggregate.popularPoints / maxPopularPoints) * 100 : 0;
 
   return {
@@ -239,11 +237,6 @@ const normalizeSlider = (sum: number, count: number) => {
   if (!count) return 0;
   const average = sum / count;
   return average * 10;
-};
-
-const normalizeBoolean = (sum: number, count: number) => {
-  if (!count) return 0;
-  return (sum / count) * 100;
 };
 
 const computeLocalPopularScore = (projectId: string, ranking: string[], totalProjects: number) => {

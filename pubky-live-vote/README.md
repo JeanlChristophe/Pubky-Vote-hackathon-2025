@@ -6,7 +6,7 @@ Pubky Live Vote is a responsive hackathon voting interface that uses the Pubky J
 
 - **Pubky authentication** – voters connect through the Pubky Ring QR flow. A mock client is bundled for offline development and falls back automatically if the SDK is unavailable.
 - **Mobile and desktop friendly UI** – adaptive layout for phones, tablets, and desktops with high-contrast styling.
-- **Full rubric support** – sliders for Complexity, Creativity / Practicality, Team Presentation, and Feedback Quality plus a readiness toggle.
+- **Full rubric support** – sliders for Complexity, Creativity / Practicality, Readiness / Demo polish, Team Presentation, and Feedback Quality.
 - **Popular vote ranking** – drag-friendly ranking board with explicit self-vote blocking once the voter selects their own project.
 - **Feedback & tagging** – comment box and quick tag helper per project.
 - **Offline cache** – ballots queue in local storage whenever the network is down and flush automatically once connectivity is restored.
