@@ -44,12 +44,16 @@ const normalizeSummary = (
   const coveredIds = new Set(summary.entries.map((entry) => entry.projectId));
 
   const entries: LeaderboardEntry[] = [
-    ...summary.entries.map((entry) => ({
-      projectId: entry.projectId,
-      projectName: projectById.get(entry.projectId)?.name ?? entry.projectId,
-      total: entry.total,
-      components: entry.components
-    }))
+    ...summary.entries.map((entry) => {
+      const components = entry.components;
+
+      return {
+        projectId: entry.projectId,
+        projectName: projectById.get(entry.projectId)?.name ?? entry.projectId,
+        total: computeTotal(components),
+        components
+      } satisfies LeaderboardEntry;
+    })
   ];
 
   projects.forEach((project) => {
