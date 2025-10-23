@@ -39,14 +39,28 @@ const parseHostname = (url: string): string | null => {
   }
 };
 
+const isPrivateIpv4 = (hostname: string): boolean => {
+  if (!/^\d+\.\d+\.\d+\.\d+$/.test(hostname)) return false;
+  const [a, b] = hostname.split('.').map(Number);
+  if (Number.isNaN(a) || Number.isNaN(b)) return false;
+  if (a === 10) return true;
+  if (a === 172 && b >= 16 && b <= 31) return true;
+  if (a === 192 && b === 168) return true;
+  return false;
+};
+
 const isLocalHostname = (hostname: string | null | undefined): boolean => {
   if (!hostname) return true;
   const normalized = hostname.toLowerCase();
   return (
     normalized === 'localhost' ||
     normalized === '127.0.0.1' ||
+    normalized === '0.0.0.0' ||
     normalized === '::1' ||
-    normalized.endsWith('.local')
+    normalized === '0:0:0:0:0:0:0:1' ||
+    normalized.endsWith('.local') ||
+    normalized.endsWith('.lan') ||
+    isPrivateIpv4(normalized)
   );
 };
 
