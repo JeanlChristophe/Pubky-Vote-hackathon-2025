@@ -20,6 +20,8 @@ const WEIGHTS: Record<LeaderboardComponent, number> = {
   ai: 0.15
 };
 
+const TOTAL_WEIGHT = Object.values(WEIGHTS).reduce((sum, weight) => sum + weight, 0);
+
 export const loadLeaderboard = async (projects: Project[]): Promise<LeaderboardState> => {
   const summary = await fetchLeaderboardSummary();
   if (summary) {
@@ -239,14 +241,22 @@ const normalizeBoolean = (sum: number, count: number) => {
   return (sum / count) * 100;
 };
 
-const computeTotal = (components: LeaderboardComponents) =>
-  (components.complexity ?? 0) * WEIGHTS.complexity +
-  (components.creativity ?? 0) * WEIGHTS.creativity +
-  (components.readiness ?? 0) * WEIGHTS.readiness +
-  (components.presentation ?? 0) * WEIGHTS.presentation +
-  (components.feedback ?? 0) * WEIGHTS.feedback +
-  (components.popular ?? 0) * WEIGHTS.popular +
-  (components.ai ?? 0) * WEIGHTS.ai;
+const computeTotal = (components: LeaderboardComponents) => {
+  const weightedSum =
+    (components.complexity ?? 0) * WEIGHTS.complexity +
+    (components.creativity ?? 0) * WEIGHTS.creativity +
+    (components.readiness ?? 0) * WEIGHTS.readiness +
+    (components.presentation ?? 0) * WEIGHTS.presentation +
+    (components.feedback ?? 0) * WEIGHTS.feedback +
+    (components.popular ?? 0) * WEIGHTS.popular +
+    (components.ai ?? 0) * WEIGHTS.ai;
+
+  if (TOTAL_WEIGHT <= 0) {
+    return 0;
+  }
+
+  return weightedSum / TOTAL_WEIGHT;
+};
 
 const sortEntries = (entries: LeaderboardEntry[]) =>
   [...entries].sort((a, b) => b.total - a.total);
